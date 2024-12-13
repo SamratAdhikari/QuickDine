@@ -1,33 +1,36 @@
 import mongoose from "mongoose";
 
-// Define the schema for an order
-const itemSchema = new mongoose.Schema({
-  orderedTime: {
-    type: Date,
-    required: true,
-    default: Date.now,
-  },
-  tableNumber: {
-    type: Number,
-    required: true,
-  },
-  items: [
-    {
-      name: {
-        type: String,
-        required: true,
+const itemSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+      validate: {
+        validator: function (v) {
+          return v > 0;
+        },
+        message: (props) => `${props.value} is not a valid price!`,
       },
     },
-  ],
-  status: {
-    type: String,
-    enum: ["order placed", "cooking", "completed"],
-    required: true,
-    default: "order placed",
+    description: {
+      type: String,
+      trim: true,
+    },
+    category: {
+      type: String,
+      trim: true,
+    },
   },
-});
+  {
+    timestamps: true,
+  }
+);
 
 // Export the model
 const Item = mongoose.model("Item", itemSchema);
-
 export default Item;

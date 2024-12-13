@@ -47,7 +47,8 @@ export async function POST(request) {
       category: body.category || "",
     });
 
-    const savedItem = await newItem.save();
+    // const savedItem = await newItem.save(newItem);
+    const savedItem = await Item.create(newItem);
     return NextResponse.json(savedItem);
   } catch (error) {
     console.error("Error creating item:", error);
