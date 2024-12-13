@@ -18,6 +18,12 @@ const itemSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+
+  url: {
+    type: String,
+    required: false,
+    // default: "",
+  },
 });
 
 // Avoid overwriting the model if it's already defined

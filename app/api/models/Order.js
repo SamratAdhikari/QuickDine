@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema(
   {
-    tableNo: { type: Number, required: true },
+    table: { type: String, required: true },
     items: [
       {
         item: {

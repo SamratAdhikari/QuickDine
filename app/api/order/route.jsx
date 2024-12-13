@@ -26,7 +26,7 @@ export async function POST(request) {
     const body = await request.json();
 
     // Validate the input manually
-    if (!body.tableNo || !body.items || !Array.isArray(body.items)) {
+    if (!body.table || !body.items || !Array.isArray(body.items)) {
       return NextResponse.json(
         { error: "Table number and items are required!" },
         { status: 400 }
@@ -55,7 +55,7 @@ export async function POST(request) {
     // console.log(body.items[0].quantity);
     // Create a new order
     const newOrder = new Order({
-      tableNo: body.tableNo,
+      table: body.table,
       items: body.items,
       orderStatus: body.orderStatus || "pending", // Default to 'pending' if no status is provided
     });
