@@ -4,7 +4,7 @@ import { Rupee } from "@/app/constants/Symbols.jsx";
 import CardDialog from "./CardDialog"; // Import CardDialog
 
 const MenuCard = ({ item }) => {
-    const { name, price, description, url } = item; // Ensure `url` is passed as the image source
+    const { name, price, description, url } = item;
 
     // State to control dialog visibility
     const [openDialog, setOpenDialog] = useState(false);

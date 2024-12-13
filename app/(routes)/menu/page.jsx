@@ -34,7 +34,7 @@ const Menu = () => {
                 <div className="w-full text-center text-xl flex justify-start pl-4">
                     Menu Items
                 </div>
-                <div className="flex justify-between items-center gap-4 flex-wrap mt-8 w-[350] h-[400] px-4">
+                <div className="flex justify-between items-center gap-4 flex-wrap mt-4 w-[350] h-[400] px-4">
                     {/* Render skeleton loaders while loading */}
                     {Array(8)
                         .fill(0)

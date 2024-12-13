@@ -3,10 +3,13 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { Button, CardContent, CardMedia, Typography } from "@mui/material";
 import { Rupee } from "@/app/constants/Symbols.jsx"; // Assuming you already have the Rupee symbol
 import { Minus, Plus } from "lucide-react";
+import { useOrder } from "@/app/context/OrderContext";
 
 const CardDialog = ({ open, onClose, item }) => {
     const [quantity, setQuantity] = useState(1); // Initial quantity is 1
     const { name, description, price, url } = item;
+
+    const { addItemToOrder } = useOrder();
 
     // Handle quantity increase
     const increaseQuantity = () => {
@@ -23,17 +26,22 @@ const CardDialog = ({ open, onClose, item }) => {
     // Calculate total price based on quantity
     const totalPrice = price * quantity;
 
+    const handleAddToOrder = () => {
+        addItemToOrder(item, quantity); // Add item to order context
+        onClose(); // Close dialog after adding item
+    };
+
     return (
         <Dialog.Root open={open} onOpenChange={onClose}>
             <Dialog.Portal>
                 <Dialog.Overlay className="fixed inset-0 bg-black opacity-50 w-[100vw] h-[100vh]" />
-                <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 rounded-xl shadow-lg w-[90%] sm:w-[400px]">
+                <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-lg w-[90%] sm:w-[400px] ">
                     <CardMedia
                         component="img"
                         image={url}
                         alt={name}
                         sx={{ height: 250, width: "100%", objectFit: "cover" }}
-                        className="rounded-xl"
+                        className="rounded-t-xl"
                     />
                     <Dialog.Title className="text-xl font-semibold mt-4 ml-2">
                         {name}
@@ -84,7 +92,7 @@ const CardDialog = ({ open, onClose, item }) => {
 
                         <div className="mt-6 flex justify-between">
                             <Button
-                                onClick={onClose}
+                                onClick={handleAddToOrder}
                                 variant="contained"
                                 className="px-8 font-semibold font-base py-2 bg-green-800 border border-green-400 hover:bg-green-700 rounded-xl"
                             >
