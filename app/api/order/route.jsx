@@ -37,26 +37,30 @@ export async function POST(request) {
     await dbConnect();
 
     // Check if all item IDs are valid
-    const itemIds = body.items.map((item) => item.item);
-    const items = await Item.find({ _id: { $in: itemIds } });
-
+    const itemIds = body.items.map((item) => item.item._id);
+    const items_db = await Item.find({ _id: { $in: itemIds } });
+    // console.log("hello: ", itemIds);
+    // console.log("hello: ", items);
     // If some items are not found, return an error
-    if (items.length !== body.items.length) {
+    if (items_db.length !== body.items.length) {
       return NextResponse.json(
         { error: "One or more items not found." },
         { status: 404 }
       );
     }
+    body.items.map((item) => {
+      console.log(item);
+    });
 
+    // console.log(body.items[0].quantity);
     // Create a new order
     const newOrder = new Order({
       tableNo: body.tableNo,
-      items: body.items.map((item) => ({
-        item: item.item, // Item reference ID
-        quantity: item.quantity, // Quantity of the item
-      })),
+      items: body.items,
       orderStatus: body.orderStatus || "pending", // Default to 'pending' if no status is provided
     });
+
+    console.log(newOrder);
 
     // Save the new order to the database
     const savedOrder = await newOrder.save();

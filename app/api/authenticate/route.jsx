@@ -44,8 +44,8 @@ export async function POST(request) {
     // Create a new user
     const newUser = new User({
       primary_id: body.primary_id,
-      roles: body.roles || ['customer'],
-      password: hashedPassword
+      roles: body.roles || ["customer"],
+      password: hashedPassword,
     });
 
     // const savedItem = await newItem.save(newItem);

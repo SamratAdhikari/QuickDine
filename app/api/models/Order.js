@@ -19,6 +19,7 @@ const orderSchema = new mongoose.Schema(
       enum: ["pending", "completed", "cancelled"],
       default: "pending",
     },
+    // bill: { type: mongoose.Schema.Types.ObjectId, ref: "Bill" }, // Link to Bill
   },
   { timestamps: true }
 );
