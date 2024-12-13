@@ -1,3 +1,7 @@
+import dbConnect from "./api/utils/dbConnect";
+
+dbConnect();
+
 export default function Home() {
   return (
     <>
