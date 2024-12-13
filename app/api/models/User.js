@@ -2,11 +2,14 @@ import mongoose from "mongoose";
 
 // Define the schema for an order
 const userSchema = new mongoose.Schema({
-  username: String,
+  primary_id:{
+    require: true,
+    type: String
+  } ,
 
   roles: {
     type: [String],
-    default: ["user"],
+    default: ["customer"],
   },
 
   password: String,
