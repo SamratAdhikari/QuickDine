@@ -6,6 +6,7 @@ const itemSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  image: String,
   price: {
     type: mongoose.Schema.Types.Mixed, // Allows both int and float values
     required: true,

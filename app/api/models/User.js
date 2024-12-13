@@ -15,7 +15,13 @@ const userSchema = new mongoose.Schema({
   password: String,
 });
 
-// Export the model
-const User = mongoose.model("User", userSchema);
+// Avoid overwriting the model if it's already defined
+let User;
+
+if (mongoose.models.User) {
+  User = mongoose.model("User");
+} else {
+  User = mongoose.model("User", userSchema);
+}
 
 module.exports = User;
