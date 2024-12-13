@@ -28,6 +28,6 @@ const orderSchema = new mongoose.Schema({
 });
 
 // Export the model
-const Order = mongoose.model("User", userSchema);
+const Order = mongoose.model("Order", orderSchema);
 
 export default Order;
