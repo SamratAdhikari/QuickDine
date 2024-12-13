@@ -26,7 +26,7 @@ const Order = () => {
     };
 
     const handlePlaceOrder = async () => {
-        const table = "Table 01"; // You can dynamically set this based on the actual table
+        const table = "Table01"; // You can dynamically set this based on the actual table
         const items = order.map((item) => ({
             item: item._id, // Ensure the item._id is used to reference the item in the database
             quantity: item.quantity,
@@ -62,7 +62,7 @@ const Order = () => {
     };
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center mt-4">
             <Typography variant="h4" sx={{ mb: 4 }} className="text-center">
                 Your Orders
             </Typography>
