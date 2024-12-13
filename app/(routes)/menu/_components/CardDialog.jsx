@@ -7,7 +7,7 @@ import { useOrder } from "@/app/context/OrderContext";
 
 const CardDialog = ({ open, onClose, item }) => {
     const [quantity, setQuantity] = useState(1); // Initial quantity is 1
-    const { name, description, price, url } = item;
+    const { _id, name, description, price, url } = item; // Use _id instead of id
 
     const { addItemToOrder } = useOrder();
 
@@ -26,8 +26,9 @@ const CardDialog = ({ open, onClose, item }) => {
     // Calculate total price based on quantity
     const totalPrice = price * quantity;
 
+    // Handle adding item to order
     const handleAddToOrder = () => {
-        addItemToOrder(item, quantity); // Add item to order context
+        addItemToOrder(item, quantity); // Pass item and quantity to context
         onClose(); // Close dialog after adding item
     };
 

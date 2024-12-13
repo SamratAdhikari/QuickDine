@@ -10,50 +10,52 @@ export const useOrder = () => {
 };
 
 export const OrderProvider = ({ children }) => {
-    const [order, setOrder] = useState([]); // Store the order items
+    const [order, setOrder] = useState([]);
 
-    // Add item to the order list
-    const addItemToOrder = (item) => {
+    // Function to add item to the order
+    const addItemToOrder = (item, quantity) => {
         setOrder((prevOrder) => {
-            const existingItem = prevOrder.find((i) => i.id === item.id);
+            // Check if the item already exists in the order (using _id)
+            const existingItem = prevOrder.find((i) => i._id === item._id);
+
             if (existingItem) {
-                // If the item already exists, update the quantity and totalPrice
+                // If the item exists, update its quantity and total price
                 return prevOrder.map((i) =>
-                    i.id === item.id
+                    i._id === item._id
                         ? {
                               ...i,
-                              quantity: i.quantity + 1,
-                              totalPrice: (i.quantity + 1) * i.price,
+                              quantity: i.quantity + quantity, // Add the new quantity
+                              totalPrice: (i.quantity + quantity) * i.price, // Update total price
                           }
                         : i
                 );
             } else {
-                // If it's a new item, add it to the order list
+                // If it's a new item, add it to the order with initial quantity
                 return [
                     ...prevOrder,
-                    { ...item, quantity: 1, totalPrice: item.price },
+                    { ...item, quantity, totalPrice: item.price * quantity },
                 ];
             }
         });
     };
 
-    // Remove item from the order list
-    const removeItemFromOrder = (id) => {
-        setOrder((prevOrder) => prevOrder.filter((item) => item.id !== id));
+    // Function to remove item from the order
+    const removeItemFromOrder = (_id) => {
+        setOrder((prevOrder) => prevOrder.filter((item) => item._id !== _id));
     };
 
-    // Update item quantity in the order
-    const updateItemQuantity = (id, quantity) => {
+    // Function to update the quantity of an item in the order
+    const updateItemQuantity = (_id, quantity) => {
         setOrder((prevOrder) =>
             prevOrder.map((item) =>
-                item.id === id
+                item._id === _id
                     ? { ...item, quantity, totalPrice: item.price * quantity }
                     : item
             )
         );
     };
 
-    // Calculate total price for the entire order
+    // Calculate total price of the entire order
     const calculateTotalPrice = () => {
         return order.reduce((acc, item) => acc + item.totalPrice, 0);
     };

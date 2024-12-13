@@ -91,8 +91,7 @@ const Order = () => {
                     ))}
                     <div className="mt-4">
                         <Typography variant="h6" className="font-semibold">
-                            Total: {Rupee}
-                            {calculateTotalPrice()}
+                            Total: ₹{calculateTotalPrice()}
                         </Typography>
                         <Button
                             variant="contained"
