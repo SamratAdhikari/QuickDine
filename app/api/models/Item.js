@@ -1,36 +1,32 @@
 import mongoose from "mongoose";
 
-const itemSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    price: {
-      type: Number,
-      required: true,
-      validate: {
-        validator: function (v) {
-          return v > 0;
-        },
-        message: (props) => `${props.value} is not a valid price!`,
-      },
-    },
-    description: {
-      type: String,
-      trim: true,
-    },
-    category: {
-      type: String,
-      trim: true,
-    },
+// Define your schema
+const itemSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
   },
-  {
-    timestamps: true,
-  }
-);
+  price: {
+    type: mongoose.Schema.Types.Mixed, // Allows both int and float values
+    required: true,
+  },
+  description: {
+    type: String,
+    default: "",
+  },
+  category: {
+    type: String,
+    default: "",
+  },
+});
 
-// Export the model
-const Item = mongoose.model("Item", itemSchema);
+// Avoid overwriting the model if it's already defined
+let Item;
+
+if (mongoose.models.Item) {
+  Item = mongoose.model("Item");
+} else {
+  Item = mongoose.model("Item", itemSchema);
+}
+
 export default Item;
