@@ -49,7 +49,7 @@ const SideNav = ({ user }) => {
             <div className="flex items-center">
                 <Link href={"/"}>
                     <span className="text-3xl text-blue-950 font-extrabold">
-                        FoodHelper
+                        FastFood
                     </span>
                 </Link>
             </div>
