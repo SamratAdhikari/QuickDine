@@ -11,7 +11,10 @@ export async function GET(request, { params }) {
     if (user) {
       console.log(user);
       // Redirect to '/page'
-      return NextResponse.redirect(new URL('/', request.url));
+      return NextResponse.redirect(
+        new URL(`/menu?user=${encodeURIComponent(JSON.stringify(user))}`, request.url)
+      );
+      
     }
 
     // Return a 404 response if the user is not found
