@@ -1,33 +1,35 @@
-import mongoose from "mongoose";
+// models/Order.js
+const mongoose = require("mongoose");
 
-// Define the schema for an order
-const orderSchema = new mongoose.Schema({
-  orderedTime: {
-    type: Date,
-    required: true,
-    default: Date.now,
-  },
-  tableNumber: {
-    type: Number,
-    required: true,
-  },
-  items: [
-    {
-      name: {
-        type: String,
-        required: true,
+const orderSchema = new mongoose.Schema(
+  {
+    tableNo: { type: Number, required: true },
+    items: [
+      {
+        item: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Item",
+          required: true,
+        },
+        quantity: { type: Number, required: true },
       },
+    ],
+    orderStatus: {
+      type: String,
+      enum: ["pending", "completed", "cancelled"],
+      default: "pending",
     },
-  ],
-  status: {
-    type: String,
-    enum: ["order placed", "cooking", "completed"],
-    required: true,
-    default: "order placed",
   },
-});
+  { timestamps: true }
+);
 
-// Export the model
-const Order = mongoose.model("Order", orderSchema);
+// Avoid overwriting the model if it's already defined
+let Item;
+
+if (mongoose.models.Order) {
+  Order = mongoose.model("Order");
+} else {
+  Order = mongoose.model("Order", orderSchema);
+}
 
 export default Order;
