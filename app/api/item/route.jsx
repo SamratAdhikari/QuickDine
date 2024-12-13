@@ -45,6 +45,7 @@ export async function POST(request) {
     const newItem = new Item({
       name: body.name,
       price: body.price,
+      image: body.file?.filename,
       description: body.description || "",
       category: body.category || "",
       url: body.url || "",
