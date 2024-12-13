@@ -60,6 +60,10 @@ export const OrderProvider = ({ children }) => {
         return order.reduce((acc, item) => acc + item.totalPrice, 0);
     };
 
+    const clearOrder = () => {
+        setOrder([]);
+    };
+
     return (
         <OrderContext.Provider
             value={{
@@ -68,6 +72,7 @@ export const OrderProvider = ({ children }) => {
                 removeItemFromOrder,
                 updateItemQuantity,
                 calculateTotalPrice,
+                clearOrder,
             }}
         >
             {children}

@@ -12,6 +12,7 @@ const Order = () => {
         removeItemFromOrder,
         updateItemQuantity,
         calculateTotalPrice,
+        clearOrder,
     } = useOrder();
 
     const handleRemoveItem = (id) => {
@@ -21,6 +22,42 @@ const Order = () => {
     const handleChangeQuantity = (id, quantity) => {
         if (quantity > 0) {
             updateItemQuantity(id, quantity);
+        }
+    };
+
+    const handlePlaceOrder = async () => {
+        const table = "Table 01"; // You can dynamically set this based on the actual table
+        const items = order.map((item) => ({
+            item: item._id, // Ensure the item._id is used to reference the item in the database
+            quantity: item.quantity,
+        }));
+
+        const orderData = {
+            table,
+            items,
+        };
+
+        try {
+            const response = await fetch("/api/order", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(orderData),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log("Order placed successfully:", data);
+                clearOrder();
+
+                // You can handle success here, like clearing the order or redirecting
+            } else {
+                console.error("Failed to place order:", data.error);
+            }
+        } catch (error) {
+            console.error("Error placing order:", error);
         }
     };
 
@@ -108,6 +145,7 @@ const Order = () => {
                         </Typography>
                         {/* Place Order Button */}
                         <Button
+                            onClick={() => handlePlaceOrder()}
                             variant="contained"
                             className="bg-blue-950 font-semibold py-2 rounded-xl"
                             sx={{ mt: 2 }}
