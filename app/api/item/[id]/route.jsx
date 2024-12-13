@@ -23,17 +23,10 @@ export async function GET(request, { params }) {
   }
 }
 
-export async function PUT(request, { params }) {
+// PATCH: Update an existing product by ID (Partial Update)
+export async function PATCH(request, { params }) {
   try {
     const body = await request.json();
-
-    // Validate the input manually (you can use a schema validation library like Joi or Zod)
-    if (!body.name || !body.price) {
-      return NextResponse.json(
-        { error: "Name and price are required!" },
-        { status: 400 }
-      );
-    }
 
     await dbConnect(); // Ensure database connection
 
@@ -47,16 +40,20 @@ export async function PUT(request, { params }) {
       );
     }
 
-    // Update the product
+    // Prepare the update data object (only include fields that are present in the request)
+    const updateData = {};
+
+    // Only update the fields that are provided in the request body
+    if (body.name) updateData.name = body.name;
+    if (body.price) updateData.price = body.price;
+    if (body.description) updateData.description = body.description;
+    if (body.category) updateData.category = body.category;
+
+    // Perform the update with only the fields present in the body
     const updatedProd = await Item.findByIdAndUpdate(
       params.id,
-      {
-        name: body.name,
-        price: body.price,
-        description: body.description,
-        category: body.category,
-      },
-      { new: true }
+      updateData, // Only update the provided fields
+      { new: true } // Return the updated document
     );
 
     return NextResponse.json(updatedProd);
