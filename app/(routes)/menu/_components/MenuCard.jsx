@@ -54,13 +54,18 @@ const MenuCard = ({ item }) => {
                         >
                             {name}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography
+                            variant="body2"
+                            color="text.secondary"
+                            className="font-semibold text-sm"
+                        >
                             {description || "No description available."}
                         </Typography>
                         <Typography
                             variant="h6"
                             color="text.primary"
                             sx={{ mt: 2 }}
+                            className="font-semibold text-gray-500"
                         >
                             <span>{Rupee}</span>
                             {price}

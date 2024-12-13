@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import {
-    Button,
-    Card,
-    CardContent,
-    CardMedia,
-    Typography,
-} from "@mui/material";
+import { Button, CardContent, CardMedia, Typography } from "@mui/material";
 import { Rupee } from "@/app/constants/Symbols.jsx"; // Assuming you already have the Rupee symbol
+import { Minus, Plus } from "lucide-react";
 
 const CardDialog = ({ open, onClose, item }) => {
     const [quantity, setQuantity] = useState(1); // Initial quantity is 1
@@ -31,27 +26,33 @@ const CardDialog = ({ open, onClose, item }) => {
     return (
         <Dialog.Root open={open} onOpenChange={onClose}>
             <Dialog.Portal>
-                <Dialog.Overlay className="fixed inset-0 bg-black opacity-50" />
-                <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 rounded-lg shadow-lg w-[90%] sm:w-[400px]">
-                    <Dialog.Title className="text-xl font-semibold">
-                        {name}
-                    </Dialog.Title>
+                <Dialog.Overlay className="fixed inset-0 bg-black opacity-50 w-[100vw] h-[100vh]" />
+                <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 rounded-xl shadow-lg w-[90%] sm:w-[400px]">
                     <CardMedia
                         component="img"
-                        image={url || "https://via.placeholder.com/150"}
+                        image={url}
                         alt={name}
                         sx={{ height: 250, width: "100%", objectFit: "cover" }}
+                        className="rounded-xl"
                     />
+                    <Dialog.Title className="text-xl font-semibold mt-4 ml-2">
+                        {name}
+                    </Dialog.Title>
                     <CardContent>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography
+                            variant="body2"
+                            color="text.secondary"
+                            className="-mt-2 -ml-2 text-sm font-semibold"
+                        >
                             {description || "No description available."}
                         </Typography>
 
-                        <div className="mt-4">
+                        <div className="mt-4 flex justify-between items-center">
                             <Typography
                                 variant="h6"
                                 color="text.primary"
                                 sx={{ fontWeight: "bold" }}
+                                className="text-gray-600"
                             >
                                 {Rupee} {totalPrice}
                             </Typography>
@@ -61,27 +62,38 @@ const CardDialog = ({ open, onClose, item }) => {
                                     <Button
                                         onClick={decreaseQuantity}
                                         variant="outlined"
+                                        className="rounded-full px-2 font-semibold"
                                         sx={{ marginRight: 2 }}
                                     >
-                                        -
+                                        <Minus className="w-5 font-semibold" />
                                     </Button>
-                                    <span>{quantity}</span>
+                                    <span className="text-lg font-semibold text-gray-600">
+                                        {quantity}
+                                    </span>
                                     <Button
                                         onClick={increaseQuantity}
                                         variant="outlined"
                                         sx={{ marginLeft: 2 }}
+                                        className="rounded-full px-2 font-semibold"
                                     >
-                                        +
+                                        <Plus className="w-5 font-semibold" />
                                     </Button>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="mt-4 flex justify-end">
+                        <div className="mt-6 flex justify-between">
                             <Button
                                 onClick={onClose}
                                 variant="contained"
-                                color="primary"
+                                className="px-8 font-semibold font-base py-2 bg-green-800 border border-green-400 hover:bg-green-700 rounded-xl"
+                            >
+                                Add
+                            </Button>
+                            <Button
+                                onClick={onClose}
+                                variant="contained"
+                                className="px-6 font-semibold font-base py-2 bg-blue-950 border border-blue-400 hover:bg-blue-900 rounded-xl"
                             >
                                 Close
                             </Button>
