@@ -1,19 +1,22 @@
 import dbConnect from "../../utils/dbConnect";
 import User from "../../models/User";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-
-export async function POST(request, {params}) {
-  try{
-    console.log(request);
+export async function GET(request, { params }) {
+  try {
     await dbConnect();
+    const { id } = params;
 
-    const user = await User.findById(params.id );
+    const user = await User.findById(id);
     if (user) {
-      return NextResponse.json({ message: user }, { status: 200 });
+      console.log(user);
+      // Redirect to '/page'
+      return NextResponse.redirect(new URL('/', request.url));
     }
-  }catch(error){
-    return NextResponse.json({error: "Failed to fetch user"}, {status: 400})
+
+    // Return a 404 response if the user is not found
+    return NextResponse.json({ message: "User not found" }, { status: 404 });
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to fetch user" }, { status: 400 });
   }
 }
-
