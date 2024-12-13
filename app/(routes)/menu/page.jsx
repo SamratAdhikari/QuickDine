@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 import MenuCard from "./_components/MenuCard";
 import { Skeleton } from "@mui/material";
 
+
 const Menu = () => {
+    
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null); // Add error handling state
@@ -12,7 +14,7 @@ const Menu = () => {
     useEffect(() => {
         const fetchItems = async () => {
             try {
-                const response = await fetch("/api/item");
+                const response = await fetch(`/api/item/`);
                 if (!response.ok) {
                     throw new Error("Failed to fetch items");
                 }

@@ -1,11 +1,27 @@
 "use client";
 
+import { useUser } from "../../../context/UserContext";
 import { LayoutGrid, ShoppingCart, ReceiptText, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
-const SideNav = () => {
+const SideNav = ({ user }) => {
     const path = usePathname();
+    const { contextUser, setUserData } = useUser();
+
+    // Use a useEffect to update the user data only when the component mounts or user changes
+    useEffect(() => {
+        if (user) {
+            const jsonUser = JSON.parse(user);
+            // Update the user data only if it has changed
+            if (JSON.stringify(contextUser) !== JSON.stringify(jsonUser)) {
+                setUserData(jsonUser);
+            }
+        }
+    }, [user, contextUser, setUserData]); // Ensure this effect only runs when `user` or `contextUser` changes
+
+    console.log("testing", contextUser);
 
     const menuData = [
         {
@@ -55,7 +71,9 @@ const SideNav = () => {
                 <span className="w-8 h-8 rounded-full bg-slate-300 flex justify-center items-center">
                     <User className="w-7 h-7" />
                 </span>
-                Table 1
+                <h1>
+                    {contextUser.primary_id}
+                </h1>
             </div>
         </div>
     );
