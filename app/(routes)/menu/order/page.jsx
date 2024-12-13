@@ -4,6 +4,7 @@ import React from "react";
 import { useOrder } from "@/app/context/OrderContext"; // Use order context
 import { Button, Typography } from "@mui/material";
 import { Rupee } from "@/app/constants/Symbols";
+import { Trash } from "lucide-react";
 
 const Order = () => {
     const {
@@ -14,30 +15,30 @@ const Order = () => {
     } = useOrder();
 
     const handleRemoveItem = (id) => {
-        removeItemFromOrder(id); // Remove item from order
+        removeItemFromOrder(id);
     };
 
     const handleChangeQuantity = (id, quantity) => {
         if (quantity > 0) {
-            updateItemQuantity(id, quantity); // Update quantity for the item
+            updateItemQuantity(id, quantity);
         }
     };
 
     return (
-        <div>
-            <Typography variant="h4" sx={{ mb: 2 }}>
-                Your Order
+        <div className="flex flex-col items-center">
+            <Typography variant="h4" sx={{ mb: 4 }} className="text-center">
+                Your Orders
             </Typography>
             {order.length === 0 ? (
-                <Typography>No items in your order yet.</Typography>
+                <Typography>No items in your order List yet.</Typography>
             ) : (
-                <>
+                <div className="p-6 w-full sm:w-[95%] md:w-[60%] flex flex-col gap-4 rounded-lg shadow-lg">
                     {order.map((item, index) => (
                         <div
                             key={index}
-                            className="flex justify-between items-center mb-4"
+                            className="flex justify-between items-center w-full mb-4"
                         >
-                            <div>
+                            <div className="flex-1">
                                 <Typography variant="h6">
                                     {item.name}
                                 </Typography>
@@ -45,15 +46,18 @@ const Order = () => {
                                     variant="body2"
                                     color="text.secondary"
                                 >
-                                    ₹{item.price} x {item.quantity} = ₹
+                                    {Rupee}
+                                    {item.price} x {item.quantity} = {Rupee}
                                     {item.totalPrice}
                                 </Typography>
                             </div>
-                            <div className="flex space-x-2">
+
+                            <div className="flex space-x-4 items-center">
+                                {/* Decrement Button */}
                                 <Button
                                     onClick={() =>
                                         handleChangeQuantity(
-                                            item.id,
+                                            item._id, // Using item._id to match
                                             item.quantity - 1
                                         )
                                     }
@@ -62,16 +66,20 @@ const Order = () => {
                                 >
                                     -
                                 </Button>
+
+                                {/* Quantity Display */}
                                 <Typography
                                     variant="body1"
                                     sx={{ alignSelf: "center" }}
                                 >
                                     {item.quantity}
                                 </Typography>
+
+                                {/* Increment Button */}
                                 <Button
                                     onClick={() =>
                                         handleChangeQuantity(
-                                            item.id,
+                                            item._id, // Consistent use of item._id
                                             item.quantity + 1
                                         )
                                     }
@@ -79,29 +87,36 @@ const Order = () => {
                                 >
                                     +
                                 </Button>
+
+                                {/* Remove Button */}
                                 <Button
-                                    onClick={() => handleRemoveItem(item.id)}
+                                    onClick={() => handleRemoveItem(item._id)} // Using item._id here as well
                                     color="error"
                                     variant="outlined"
                                 >
-                                    Remove
+                                    <Trash />
                                 </Button>
                             </div>
                         </div>
                     ))}
-                    <div className="mt-4">
+
+                    {/* Total Price */}
+                    <div className="mt-4 w-full">
                         <Typography variant="h6" className="font-semibold">
-                            Total: ₹{calculateTotalPrice()}
+                            Total: {Rupee}
+                            {calculateTotalPrice()}
                         </Typography>
+                        {/* Place Order Button */}
                         <Button
                             variant="contained"
-                            color="primary"
+                            className="bg-blue-950 font-semibold py-2 rounded-xl"
                             sx={{ mt: 2 }}
+                            fullWidth
                         >
                             Place Order
                         </Button>
                     </div>
-                </>
+                </div>
             )}
         </div>
     );
