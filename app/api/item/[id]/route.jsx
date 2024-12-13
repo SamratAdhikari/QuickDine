@@ -48,6 +48,7 @@ export async function PATCH(request, { params }) {
     if (body.price) updateData.price = body.price;
     if (body.description) updateData.description = body.description;
     if (body.category) updateData.category = body.category;
+    if (body.url) updateData.url = body.url;
 
     // Perform the update with only the fields present in the body
     const updatedProd = await Item.findByIdAndUpdate(

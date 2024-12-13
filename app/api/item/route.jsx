@@ -39,12 +39,15 @@ export async function POST(request) {
       );
     }
 
+    console.log("testing....", body.url);
+
     // Create a new item
     const newItem = new Item({
       name: body.name,
       price: body.price,
       description: body.description || "",
       category: body.category || "",
+      url: body.url || "",
     });
 
     // const savedItem = await newItem.save(newItem);
