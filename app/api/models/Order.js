@@ -24,7 +24,7 @@ const orderSchema = new mongoose.Schema(
 );
 
 // Avoid overwriting the model if it's already defined
-let Item;
+let Order;
 
 if (mongoose.models.Order) {
   Order = mongoose.model("Order");
