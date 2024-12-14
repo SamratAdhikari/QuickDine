@@ -17,7 +17,7 @@
         }
 
         return(
-            <UserContext.Provider value={{contextUser, setUserData}}>
+            <UserContext.Provider value={{contextUser, setContextUser, setUserData}}>
                 {children}
             </UserContext.Provider>
         )
