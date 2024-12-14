@@ -8,7 +8,7 @@ const MenuHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuData = [
-    { id: 1, name: "Menu", path: "/menu" },
+    { id: 1, name: "Menu", path: `/menu/?id=675cdd072d28ff5599733aa2` },
     { id: 2, name: "Order", path: "/menu/order" },
     { id: 3, name: "Bill", path: "/menu/bill" },
   ];

@@ -19,10 +19,9 @@ const Hero = () => {
             Don't waste your time on the queue!
           </p>
 
-<<<<<<< HEAD
           <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
             <a
-              className="block w-full sm:w-auto rounded bg-primary px-8 py-3 text-sm font-medium text-white shadow hover:bg-blue-950 focus:outline-none focus:ring text-base"
+              className="block w-full sm:w-auto rounded bg-primary px-8 py-3 font-medium text-white shadow hover:bg-blue-950 focus:outline-none focus:ring text-base"
               href="/menu"
             >
               Order Now
@@ -30,18 +29,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-=======
-                    <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-                        <a
-                            className="block w-full sm:w-auto rounded bg-primary px-8 py-3 font-medium text-white shadow hover:bg-blue-950 focus:outline-none focus:ring text-base"
-                            href="/menu"
-                        >
-                            Order Now
-                        </a>
-                    </div>
-                </div>
-            </div>
->>>>>>> 86beb7b07154017184556a99da1c5226c9608c2c
 
       <Image
         src={"/menu.png"}

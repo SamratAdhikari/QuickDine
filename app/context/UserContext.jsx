@@ -1,24 +1,23 @@
-    "use client"
+"use client";
 
+import { useContext, createContext, useState } from "react";
 
-    import { useContext, createContext, useState } from "react";
+const UserContext = createContext();
 
-    const UserContext = createContext();
+export const useUser = () => {
+  return useContext(UserContext);
+};
 
-    export const useUser = ()=>{
-        return useContext(UserContext);
-    }
+export function UserProvider({ children }) {
+  const [contextUser, setContextUser] = useState("675cdd072d28ff5599733aa2");
 
-    export function UserProvider({children}){
-        const [contextUser, setContextUser] = useState([]);
+  const setUserData = (data) => {
+    setContextUser(data);
+  };
 
-        const setUserData = (data) => {
-            setContextUser(data)
-        }
-
-        return(
-            <UserContext.Provider value={{contextUser, setContextUser, setUserData}}>
-                {children}
-            </UserContext.Provider>
-        )
-    }
+  return (
+    <UserContext.Provider value={{ contextUser, setContextUser, setUserData }}>
+      {children}
+    </UserContext.Provider>
+  );
+}
