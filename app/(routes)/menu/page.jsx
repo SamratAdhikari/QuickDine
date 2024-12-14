@@ -1,17 +1,24 @@
-"use client";
+"use client"; // Ensure this file is rendered on the client side
 
 import { useEffect, useState } from "react";
 import MenuCard from "./_components/MenuCard";
 import { Skeleton } from "@mui/material";
-
+import { useUser } from "../../context/UserContext";
+// import User from "../../api/models/User";
 
 const Menu = () => {
-    
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null); // Add error handling state
+    const [error, setError] = useState(null);
+    const { contextUser, setContextUser } = useUser();
 
     useEffect(() => {
+        // Get the query parameter from the window.location.search
+        const queryParams = new URLSearchParams(window.location.search);
+        const id = queryParams.get("id"); // Extract the 'id' from the URL
+        console.log("Id here is:", id);
+
+        setContextUser(id);
         const fetchItems = async () => {
             try {
                 const response = await fetch(`/api/item/`);
@@ -27,8 +34,17 @@ const Menu = () => {
             }
         };
 
-        fetchItems();
-    }, []);
+        if (id) {
+            // If the ID is found, fetch items
+            fetchItems();
+        }
+    }, []); // Empty dependency array to run only once when the component is mounted
+
+    useEffect(() => {
+        if (contextUser) {
+            console.log("hello from there", contextUser);
+        }
+    }, [contextUser]);
 
     if (loading) {
         return (

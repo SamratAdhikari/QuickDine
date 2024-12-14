@@ -71,9 +71,7 @@ const SideNav = ({ user }) => {
                 <span className="w-8 h-8 rounded-full bg-slate-300 flex justify-center items-center">
                     <User className="w-7 h-7" />
                 </span>
-                <h1>
-                    {contextUser.primary_id??"Default"}
-                </h1>
+                <h1>{contextUser?.primary_id ?? "Default"}</h1>
             </div>
         </div>
     );

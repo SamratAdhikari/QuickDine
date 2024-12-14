@@ -9,7 +9,7 @@ const Bill = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    const tableName = "Table01"; // Specify your table here
+    const tableName = "Table01";
 
     const fetchBill = async () => {
         try {
