@@ -86,15 +86,8 @@ const Menu = () => {
                 <div
                     className="fixed bottom-10 right-10 cursor-pointer"
                     onClick={() => setIsChatOpen(!isChatOpen)} // Toggle chat open/close
-                >
-                    <div className="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center text-white">
-                        <span>🤖</span> {/* ChatBot Circle Icon */}
-                    </div>
-                </div>
+                ></div>
             )}
-
-            {/* Display ChatBot if isChatOpen is true */}
-            {isChatOpen && <ChatBot />}
         </div>
     );
 };
