@@ -3,42 +3,60 @@
 import { useUser } from "../../../context/UserContext";
 import { LayoutGrid, ShoppingCart, ReceiptText, User } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 
 const SideNav = ({ param }) => {
     const pathname = usePathname(); // Get the current pathname
-    const searchParams = useSearchParams(); // Get the current query parameters
-    const id = searchParams.get("id"); // Extract the 'id' query parameter
     const { contextUser, setUserData } = useUser();
 
+    // State to track the active menu item
+    const [activeMenu, setActiveMenu] = useState("Menu"); // Default is "Menu"
+
     useEffect(() => {
+        // Update the active menu based on the current pathname
+        if (
+            pathname.includes("/menu") &&
+            !pathname.includes("/order") &&
+            !pathname.includes("/bill")
+        ) {
+            setActiveMenu("Menu");
+        } else if (pathname === "/menu/order") {
+            setActiveMenu("Order");
+        } else if (pathname === "/menu/bill") {
+            setActiveMenu("Bill");
+        }
+
+        // Handle user data if provided
         if (param) {
-            const jsonUser = JSON.parse({ param });
+            const jsonUser = JSON.parse(param);
             if (JSON.stringify(contextUser) !== JSON.stringify(jsonUser)) {
                 setUserData(jsonUser);
             }
         }
-    }, [param, contextUser, setUserData]);
+    }, [pathname, param, contextUser, setUserData]);
 
     const menuData = [
         {
             id: 1,
             name: "Menu",
             icon: LayoutGrid,
-            path: `/menu/?id=675cdd072d28ff5599733aa2`,
+            path: `/menu?id=675cdd072d28ff5599733aa2`,
+            menuKey: "Menu", // Key for tracking active state
         },
         {
             id: 2,
             name: "Order",
             icon: ShoppingCart,
             path: "/menu/order",
+            menuKey: "Order", // Key for tracking active state
         },
         {
             id: 3,
             name: "Bill",
             icon: ReceiptText,
             path: "/menu/bill",
+            menuKey: "Bill", // Key for tracking active state
         },
     ];
 
@@ -53,17 +71,13 @@ const SideNav = ({ param }) => {
             </div>
             <div className="mt-16">
                 {menuData.map((menu) => {
-                    // Check if the current pathname and query parameter match the menu path exactly
-                    const isActive =
-                        pathname === menu.path ||
-                        (pathname === "/menu" &&
-                            menu.path === `/menu/?id=${id}`);
+                    const isActive = activeMenu === menu.menuKey;
 
                     return (
                         <Link href={menu.path} key={menu.id}>
                             <h2
                                 className={`flex gap-2 items-center text-gray-500 font-semibold p-5 mb-2 cursor-pointer rounded-xl hover:text-primary hover:bg-blue-100 
-                            ${isActive ? "text-primary bg-blue-100" : ""}`}
+                                ${isActive ? "text-primary bg-blue-100" : ""}`}
                             >
                                 <menu.icon />
                                 {menu.name}
