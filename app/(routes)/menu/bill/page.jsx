@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { Typography, Button, Card, CardContent, Skeleton } from "@mui/material"; // Add Skeleton import
 import { Rupee } from "@/app/constants/Symbols";
 

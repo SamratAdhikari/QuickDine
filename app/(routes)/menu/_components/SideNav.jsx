@@ -72,7 +72,7 @@ const SideNav = ({ user }) => {
                     <User className="w-7 h-7" />
                 </span>
                 <h1>
-                    {contextUser.primary_id}
+                    {contextUser.primary_id??"Default"}
                 </h1>
             </div>
         </div>

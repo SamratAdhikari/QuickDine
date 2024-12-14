@@ -21,7 +21,7 @@ const Hero = () => {
 
                     <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
                         <a
-                            className="block w-full sm:w-auto rounded bg-primary px-8 py-3 text-sm font-medium text-white shadow hover:bg-blue-950 focus:outline-none focus:ring text-base"
+                            className="block w-full sm:w-auto rounded bg-primary px-8 py-3 font-medium text-white shadow hover:bg-blue-950 focus:outline-none focus:ring text-base"
                             href="/menu"
                         >
                             Order Now
