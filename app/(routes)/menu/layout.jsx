@@ -1,5 +1,6 @@
 "use client";
 
+import ChatBot from "./_components/ChatBot/ChatBot";
 import MenuHeader from "./_components/MenuHeader";
 import SideNav from "./_components/SideNav";
 
